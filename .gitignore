@@ -1,0 +1,48 @@
+# --- Maven (Standard) ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Java Class Files ---
+*.class
+*.log
+*.ctxt
+
+# --- Vim / Neovim (Essential) ---
+# Swap files (αυτά που φτιάχνει το vim όταν ανοίγεις αρχείο)
+*.swp
+*.swo
+*~
+# Session files
+Session.vim
+.netrwhist
+# Tags
+tags
+
+# --- Java Language Server (jdtls/Eclipse) ---
+# ΣΗΜΑΝΤΙΚΟ: Το jdtls στο Neovim χρησιμοποιεί δομή Eclipse από κάτω.
+# Μην σβήσεις αυτά, αλλιώς ο LSP σου θα μπερδεύεται.
+.classpath
+.project
+.settings/
+.factorypath
+bin/
+
+# --- Visual Studio Code & IntelliJ ---
+# Τα κρατάμε αν συνεργαστείς με άλλους developers στο μέλλον
+.vscode/
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --- Arch Linux / System ---
+.DS_Store
+Thumbs.db
