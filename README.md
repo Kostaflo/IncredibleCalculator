@@ -40,7 +40,7 @@ This project follows a clean **MVC-like** architecture to ensure maintainability
 ### Option 1: Download the Jar
 Go to the [Releases](../../releases) page and download the latest `.jar` file.
 
-    java -jar CalculatorApp-1.0.0-SNAPSHOT.jar
+    java -jar Calculator-v1.0.0.jar
 
 ### Option 2: Build from Source
 Prerequisites: Java 21+ and Maven.
