@@ -9,30 +9,74 @@ public class CalculatorController {
 
   @FXML private TextField display;
 
+  CalculatorService service = new CalculatorService();
+
+  private double num1 = 0;
+  private String operator = "";
+  private boolean start = true;
+
   @FXML
   private void handleDigit(ActionEvent event) {
-    // Παίρνουμε το κείμενο του κουμπιού που πατήθηκε
     String digit = ((Button) event.getSource()).getText();
-    System.out.println("DEBUG: Πατήθηκε το νούμερο " + digit);
-
-    // Απλά το κολλάμε στο τέλος του κειμένου της οθόνης
-    display.setText(display.getText() + digit);
+    if (start) {
+      display.setText(digit);
+      start = false;
+    } else {
+      if (digit.equals(".") && display.getText().contains(".")) {
+        return; // Prevent multiple decimals
+      }
+      display.setText(display.getText() + digit);
+    }
   }
 
   @FXML
   private void handleOperator(ActionEvent event) {
-    String symbol = ((Button) event.getSource()).getText();
-    System.out.println("DEBUG: Πατήθηκε η πράξη " + symbol);
+    String newOperator = ((Button) event.getSource()).getText();
+    if (start) {
+      operator = newOperator;
+      return;
+    }
+    double currentNum = Double.parseDouble(display.getText());
+    if (!operator.isEmpty()) {
+      try {
+        double result = service.calculate(num1, currentNum, operator);
+        display.setText(String.valueOf(result));
+        num1 = result;
+      } catch (ArithmeticException | IllegalArgumentException e) {
+        display.setText("ERROR");
+        start = true;
+        return;
+      }
+    } else {
+      num1 = currentNum;
+    }
+    operator = newOperator;
+    start = true;
   }
 
   @FXML
   private void handleEquals(ActionEvent event) {
-    System.out.println("DEBUG: Πατήθηκε το ίσον");
+    if (operator.isEmpty() || start) {
+      return;
+    }
+    double currentNum = Double.parseDouble(display.getText());
+    try {
+      double result = service.calculate(num1, currentNum, operator);
+      display.setText(String.valueOf(result));
+      operator = "";
+      num1 = result;
+      start = true;
+    } catch (ArithmeticException | IllegalArgumentException e) {
+      display.setText("ERROR");
+      start = true;
+    }
   }
 
   @FXML
   private void handleClear(ActionEvent event) {
-    System.out.println("DEBUG: Καθαρισμός");
-    display.setText("");
+    display.setText("0");
+    num1 = 0;
+    operator = "";
+    start = true;
   }
 }
